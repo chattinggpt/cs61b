@@ -1,10 +1,11 @@
 public class LinkedListDeque<T> {
     private Node sentinel;
     private int size;
+
     public class Node {
-        public T item;
-        public Node prev;
-        public Node next;
+        private T item;
+        private Node prev;
+        private Node next;
 
         public Node(T item, Node p, Node n) {
             this.item = item;
@@ -29,23 +30,29 @@ public class LinkedListDeque<T> {
         first.next.prev = first;
         size += 1;
     }
+
     public void addLast(T item) {
         Node last = new Node(item, sentinel.prev, sentinel);
         sentinel.prev = last;
         last.prev.next = last;
         size += 1;
     }
+
     public boolean isEmpty() {
-        if (size == 0) return true;
+        if (size == 0) {
+            return true;
+        }
         return false;
     }
+
     public int size() {
         return size;
     }
+
     public void printDeque() {
         Node p = sentinel.next;
         boolean first = true;
-        while (p != sentinel){
+        while (p != sentinel) {
             if (!first) {
                 System.out.print(" ");
             }
@@ -54,8 +61,11 @@ public class LinkedListDeque<T> {
             p = p.next;
         }
     }
+
     public T removeFirst() {
-        if (size == 0) return null;
+        if (size == 0) {
+            return null;
+        }
         Node first = sentinel.next;
         sentinel.next = first.next;
         sentinel.next.prev = sentinel;
@@ -64,8 +74,11 @@ public class LinkedListDeque<T> {
         size -= 1;
         return first.item;
     }
+
     public T removeLast() {
-        if (size == 0) return null;
+        if (size == 0) {
+            return null;
+        }
         Node last = sentinel.prev;
         sentinel.prev = last.prev;
         sentinel.prev.next = sentinel;
@@ -74,6 +87,7 @@ public class LinkedListDeque<T> {
         size -= 1;
         return last.item;
     }
+
     public T get(int index) {
         int i = 0;
         Node p = sentinel.next;
@@ -81,15 +95,23 @@ public class LinkedListDeque<T> {
             i += 1;
             p = p.next;
         }
-        if (p == sentinel) return null;
+        if (p == sentinel) {
+            return null;
+        }
         return p.item;
     }
+
     public T getRecursive(int index) {
         return getRecursiveHelp(sentinel.next, index);
     }
+
     private T getRecursiveHelp(Node head, int index) {
-        if (head == sentinel) return null;
-        if (index == 0) return head.item;
+        if (head == sentinel) {
+            return null;
+        }
+        if (index == 0) {
+            return head.item;
+        }
         return getRecursiveHelp(head.next, index - 1);
     }
 }
